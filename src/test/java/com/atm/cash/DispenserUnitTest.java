@@ -25,8 +25,8 @@ public class DispenserUnitTest {
         dispenserForTest = DispenserUnit.getInstance();
         Cash cashInDispenser = dispenserForTest.getCashInDispenser();
         assertTrue("Incorrect Thousand currency notes initialized", cashInDispenser.get(CurrencyType.THOUSAND).equals(THOUSAND_NOTE_COUNT));
-       // assertTrue("Incorrect Five Hundred currency notes initialized", cashInDispenser.get(CurrencyType.FIVE_HUNDERED).equals(FIVE_HUNDRED_NOTE_COUNT));
-        //assertTrue("Incorrect Hundred currency notes initialized", cashInDispenser.get(CurrencyType.HUNDERED).equals(HUNDRED_NOTE_COUNT));
+        assertEquals("Incorrect Five Hundred currency notes initialized", cashInDispenser.get(CurrencyType.FIVE_HUNDERED),FIVE_HUNDRED_NOTE_COUNT);
+        assertEquals("Incorrect Hundred currency notes initialized", cashInDispenser.get(CurrencyType.HUNDERED),HUNDRED_NOTE_COUNT);
     }
 
     @Test

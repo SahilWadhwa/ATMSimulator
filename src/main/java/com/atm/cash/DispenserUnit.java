@@ -5,9 +5,9 @@ import com.atm.exception.InsufficientCashException;
 import static com.atm.cash.CurrencyType.*;
 
 public class DispenserUnit {
-    public static final int THOUSAND_NOTE_COUNT = 10;
-    public static final int FIVE_HUNDRED_NOTE_COUNT = 10;
-    public static final int HUNDRED_NOTE_COUNT = 10;
+    public static final Integer THOUSAND_NOTE_COUNT = 10;
+    public static final Integer FIVE_HUNDRED_NOTE_COUNT = 10;
+    public static final Integer HUNDRED_NOTE_COUNT = 10;
     private static DispenserUnit ourInstance = new DispenserUnit();
     private final Cash cashInDispenser = new Cash();
 

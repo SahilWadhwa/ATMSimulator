@@ -12,12 +12,12 @@ public class ThousandCurrencyDispenser implements DispenseChain {
     }
 
     @Override
-    public Cash dispense(Cash cashDispensed, Cash cashInATM, Long cashToDispense) {
+    public Cash dispense(final Cash cashDispensed,final Cash cashInATM, Long cashToDispense) {
 
         if (cashToDispense >= THOUSAND.getValue()) {
             int notes = (int) (cashToDispense / THOUSAND.getValue());
             if (cashInATM.get(THOUSAND) >= notes) {
-                cashToDispense = -cashToDispense % THOUSAND.getValue();
+                cashToDispense = cashToDispense % THOUSAND.getValue();
                 cashInATM.removeCurrency(THOUSAND, notes);
                 cashDispensed.addCurrency(THOUSAND, notes);
             }

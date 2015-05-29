@@ -21,6 +21,8 @@ public class DispenserUnit {
     HundredCurrencyDispenser hundredCurrencyDispenser;
 
     private DispenserUnit() {
+        addCurrencyToDispenser();
+
         rootDispenser = new ThousandCurrencyDispenser();
         fiveHundredCurrencyDispenser = new FiveHundredCurrencyDispenser();
         hundredCurrencyDispenser = new HundredCurrencyDispenser();
@@ -28,9 +30,12 @@ public class DispenserUnit {
         rootDispenser.setNext(fiveHundredCurrencyDispenser);
         fiveHundredCurrencyDispenser.setNext(hundredCurrencyDispenser);
 
+    }
+
+    private void addCurrencyToDispenser() {
         cashInDispenser.addCurrency(THOUSAND, THOUSAND_NOTE_COUNT);
-        cashInDispenser.addCurrency(FIVE_HUNDERED, FIVE_HUNDRED_NOTE_COUNT);
-        cashInDispenser.addCurrency(HUNDERED, HUNDRED_NOTE_COUNT);
+        cashInDispenser.addCurrency(FIVE_HUNDRED, FIVE_HUNDRED_NOTE_COUNT);
+        cashInDispenser.addCurrency(HUNDRED, HUNDRED_NOTE_COUNT);
     }
 
     public Cash dispenseCash(Long cashToDispense) {

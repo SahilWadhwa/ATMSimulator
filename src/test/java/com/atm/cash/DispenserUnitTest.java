@@ -1,6 +1,7 @@
 package com.atm.cash;
 
 import com.atm.exception.InsufficientCashException;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -20,18 +21,21 @@ public class DispenserUnitTest {
     public static final long REQUESTED_CASH = 1000l;
     private DispenserUnit dispenserForTest;
 
+    @Before
+    public void setUp() throws Exception {
+        dispenserForTest = DispenserUnit.getInstance();
+    }
+
     @Test
     public void shouldInitializeDispenserWithCash() throws Exception {
-        dispenserForTest = DispenserUnit.getInstance();
         Cash cashInDispenser = dispenserForTest.getCashInDispenser();
-        assertTrue("Incorrect Thousand currency notes initialized", cashInDispenser.get(CurrencyType.THOUSAND).equals(THOUSAND_NOTE_COUNT));
-        assertEquals("Incorrect Five Hundred currency notes initialized", cashInDispenser.get(CurrencyType.FIVE_HUNDERED),FIVE_HUNDRED_NOTE_COUNT);
-        assertEquals("Incorrect Hundred currency notes initialized", cashInDispenser.get(CurrencyType.HUNDERED),HUNDRED_NOTE_COUNT);
+        assertEquals("Incorrect Thousand currency notes initialized", THOUSAND_NOTE_COUNT, cashInDispenser.get(CurrencyType.THOUSAND));
+        assertEquals("Incorrect Five Hundred currency notes initialized", FIVE_HUNDRED_NOTE_COUNT, cashInDispenser.get(CurrencyType.FIVE_HUNDRED));
+        assertEquals("Incorrect Hundred currency notes initialized",HUNDRED_NOTE_COUNT, cashInDispenser.get(CurrencyType.HUNDRED) );
     }
 
     @Test
     public void shouldDispenseCashOnDemand() throws Exception {
-        dispenserForTest = DispenserUnit.getInstance();
         DispenseChain mockDispenseChain = mock(DispenseChain.class);
         dispenserForTest.setRootDispenser(mockDispenseChain);
         Cash expectedValue = new Cash();
@@ -43,7 +47,6 @@ public class DispenserUnitTest {
 
     @Test(expected = InsufficientCashException.class)
     public void shouldThrowExceptionWhenRequestedCashMoreThanAtmCash() throws Exception {
-        dispenserForTest = DispenserUnit.getInstance();
         Long requestedCash = dispenserForTest.getCashInDispenser().getTotalValue()+1;
         dispenserForTest.dispenseCash(requestedCash);
     }

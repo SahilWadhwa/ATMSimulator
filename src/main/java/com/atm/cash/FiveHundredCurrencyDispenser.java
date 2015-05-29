@@ -1,6 +1,6 @@
 package com.atm.cash;
 
-import static com.atm.cash.CurrencyType.FIVE_HUNDERED;
+import static com.atm.cash.CurrencyType.FIVE_HUNDRED;
 
 public class FiveHundredCurrencyDispenser implements DispenseChain {
     DispenseChain next;
@@ -11,13 +11,13 @@ public class FiveHundredCurrencyDispenser implements DispenseChain {
     }
 
     @Override
-    public Cash dispense(Cash cashDispensed, Cash cashInATM, Long cashToDispense) {
-        if (cashToDispense >= FIVE_HUNDERED.getValue()) {
-            int notes = (int) (cashToDispense / FIVE_HUNDERED.getValue());
-            if (cashInATM.get(FIVE_HUNDERED) >= notes) {
-                cashToDispense = -cashToDispense % FIVE_HUNDERED.getValue();
-                cashInATM.removeCurrency(FIVE_HUNDERED, notes);
-                cashDispensed.addCurrency(FIVE_HUNDERED, notes);
+    public Cash dispense(final Cash cashDispensed,final Cash cashInATM, Long cashToDispense) {
+        if (cashToDispense >= FIVE_HUNDRED.getValue()) {
+            int notes = (int) (cashToDispense / FIVE_HUNDRED.getValue());
+            if (cashInATM.get(FIVE_HUNDRED) >= notes) {
+                cashToDispense = cashToDispense % FIVE_HUNDRED.getValue();
+                cashInATM.removeCurrency(FIVE_HUNDRED, notes);
+                cashDispensed.addCurrency(FIVE_HUNDRED, notes);
             }
             if (cashToDispense == 0) {
                 return cashDispensed;

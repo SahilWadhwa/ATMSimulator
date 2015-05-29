@@ -35,15 +35,15 @@ public class CashTest {
     @Test
     public void shouldReturnTotalValueOfCash() throws Exception {
         cashUnderTest.addCurrency(THOUSAND, 1);
-        cashUnderTest.addCurrency(FIVE_HUNDERED, 1);
-        cashUnderTest.addCurrency(HUNDERED, 1);
+        cashUnderTest.addCurrency(FIVE_HUNDRED, 1);
+        cashUnderTest.addCurrency(HUNDRED, 1);
         assertTrue("Incorrect Total value is returned", cashUnderTest.getTotalValue().equals(1600L));
     }
 
     @Test
     public void shouldReturnCorrectSummary() throws Exception {
         cashUnderTest.addCurrency(THOUSAND, 1);
-        String expectedSummary = S1 + cashUnderTest.getTotalValue() + S2 + THOUSAND.getValue() + S3 + "1" + S4 + S5;
+        String expectedSummary = S1 + cashUnderTest.getTotalValue() + S2 + S6 + THOUSAND.getValue() + S3 + "1" + S4 + S5;
         assertEquals("Incorrect summary was returned", expectedSummary, cashUnderTest.getBalanceSummary());
     }
 }

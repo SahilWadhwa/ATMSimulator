@@ -1,7 +1,7 @@
 package com.atm.cash;
 
 public enum CurrencyType {
-    HUNDERED(100), FIVE_HUNDERED(500), THOUSAND(1000);
+    HUNDRED(100), FIVE_HUNDRED(500), THOUSAND(1000);
 
     private Integer value;
 

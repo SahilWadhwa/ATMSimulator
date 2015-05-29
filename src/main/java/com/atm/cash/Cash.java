@@ -5,10 +5,11 @@ import java.util.HashMap;
 public class Cash extends HashMap<CurrencyType, Integer> {
 
     public static final String S1 = "Total: Rs";
-    public static final String S2 = " (";
+    public static final String S2 = "     Currency Summary: [ ";
     public static final String S3 = "*";
     public static final String S4 = " ";
-    public static final String S5 = ")";
+    public static final String S5 = "]";
+    public static final String S6 = "Rs";
 
     public void addCurrency(CurrencyType currencyType, Integer currencyNoteCount) {
         if (this.containsKey(currencyType)) {
@@ -37,7 +38,7 @@ public class Cash extends HashMap<CurrencyType, Integer> {
     public String getBalanceSummary() {
         String balanceSummary = S1 + getTotalValue() + S2;
         for (CurrencyType currencyType : this.keySet()) {
-            balanceSummary += currencyType.getValue() + S3 + this.get(currencyType) + S4;
+            balanceSummary += S6 +currencyType.getValue() + S3 + this.get(currencyType) + S4;
         }
         balanceSummary += S5;
         return balanceSummary;

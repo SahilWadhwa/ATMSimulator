@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class ATMachine {
     private static ATMachine atm = new ATMachine();
-    private ATMAccounts accounts = new ATMAccounts();
-    private DispenserUnit dispenserUnit;
+    private final ATMAccounts accounts = new ATMAccounts();
+    private final DispenserUnit dispenserUnit;
     Scanner in;
 
 
@@ -33,26 +33,27 @@ public class ATMachine {
         System.out.println("Enter Card/acc number");
         Integer card = Integer.parseInt(in.nextLine());
         if (!accounts.isValidCard(card)) {
-            System.out.println("Invalid Card.");
-            ejectCard(in);
+            System.out.println("Invalid Card. Exiting!!");
+            System.exit(0);
         }
 
         System.out.println("Enter Pin number");
         Integer pin = Integer.parseInt(in.nextLine());
         if (!accounts.authenticateCredentials(card, pin)) {
-            System.out.println("Invalid Pin");
-            ejectCard(in);
+            System.out.println("Invalid Pin. Exiting!!");
+            System.exit(0);
         }
         return card;
     }
 
     private void withdrawCash(Integer card) {
-        System.out.println("Enter Cash To Withdraw");
+        System.out.println("Enter Cash To Withdraw in multiple of 100");
         Long cashRequested = Long.parseLong(in.nextLine());
+        if(cashRequested%100!=0) {System.out.println("Entered amount was not in multiple of 100. Exiting!!"); System.exit(0);}
         try {
             if (accounts.getBalanceFor(card) > cashRequested) {
-                System.out.println("Cash Received -" + dispenserUnit.dispenseCash(cashRequested).getBalanceSummary());
-                System.out.println("Remaining Account Balance " + accounts.debitAmount(card, cashRequested));
+                System.out.println("Cash Received.     " + dispenserUnit.dispenseCash(cashRequested).getBalanceSummary());
+                System.out.println("Remaining Account Balance Rs" + accounts.debitAmount(card, cashRequested));
             } else {
                 System.out.printf("In sufficient balance in account");
             }
@@ -63,7 +64,7 @@ public class ATMachine {
 
     public void ejectCard(Scanner in) {
 
-        System.out.println("Your card had been ejected.");
+        System.out.println("Your card had been ejected.\n");
         System.out.println("Do you want to do another transaction- y/n");
         if (in.nextLine().equalsIgnoreCase("y")) {
             this.bootUp();

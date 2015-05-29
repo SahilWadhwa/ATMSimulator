@@ -2,7 +2,7 @@ package com.atm.cash;
 
 import com.atm.exception.InsufficientCashException;
 
-import static com.atm.cash.CurrencyType.HUNDERED;
+import static com.atm.cash.CurrencyType.HUNDRED;
 
 public class HundredCurrencyDispenser implements DispenseChain {
 
@@ -11,14 +11,14 @@ public class HundredCurrencyDispenser implements DispenseChain {
     }
 
     @Override
-    public Cash dispense(Cash cashDispensed, Cash cashInATM, Long cashToDispense) {
-        if (cashToDispense >= HUNDERED.getValue()) {
-            int notes = (int) (cashToDispense / HUNDERED.getValue());
+    public Cash dispense(final Cash cashDispensed,final Cash cashInATM, Long cashToDispense) {
+        if (cashToDispense >= HUNDRED.getValue()) {
+            int notes = (int) (cashToDispense / HUNDRED.getValue());
 
-            if (cashInATM.get(HUNDERED) >= notes) {
-                cashToDispense = -cashToDispense % HUNDERED.getValue();
-                cashInATM.removeCurrency(HUNDERED, notes);
-                cashDispensed.addCurrency(HUNDERED, notes);
+            if (cashInATM.get(HUNDRED) >= notes) {
+                cashToDispense = (cashToDispense % HUNDRED.getValue());
+                cashInATM.removeCurrency(HUNDRED, notes);
+                cashDispensed.addCurrency(HUNDRED, notes);
             }
             if (cashToDispense == 0) {
                 return cashDispensed;
